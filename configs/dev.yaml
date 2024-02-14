@@ -1,0 +1,12 @@
+rpcEndpoint: 'http://127.0.0.1:8200'
+server:
+  ip: "localhost"
+  port: "4000"
+evmNetIDStr:
+  eth: "1"
+  gnd: "6133342113419"
+logPath:
+  info: "/Users/medium/Crypted/custodial-vault/log_info"
+  error: "/Users/medium/Crypted/custodial-vault/log_error"
+  debug: "/Users/medium/Crypted/custodial-vault/log_debug"
+whiteIP: "172.31.98.161"

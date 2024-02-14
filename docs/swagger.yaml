@@ -1,0 +1,93 @@
+definitions:
+  resources.ResErr:
+    properties:
+      error:
+        type: string
+    type: object
+  resources.ResJSON:
+    properties:
+      data: {}
+      status:
+        type: integer
+    type: object
+  resources.ResPrivKeyGen:
+    properties:
+      address:
+        type: string
+      keyId:
+        type: string
+    type: object
+  resources.ResSignedTxnEVM:
+    properties:
+      signedTxn:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /generateKey/evm:
+    post:
+      description: Generate PrivKey for EVM
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/resources.ResJSON'
+            - properties:
+                data:
+                  $ref: '#/definitions/resources.ResPrivKeyGen'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/resources.ResJSON'
+            - properties:
+                data:
+                  $ref: '#/definitions/resources.ResErr'
+              type: object
+      summary: Generate PrivKey for EVM
+      tags:
+      - PrivKey
+  /signTxn/gnd/{key_id}/{serialized_txn}:
+    get:
+      description: Signing Txn for GNDChain
+      parameters:
+      - description: keyId
+        in: path
+        name: keyID
+        required: true
+        type: string
+      - description: serializedTxn
+        in: path
+        name: serializedTxn
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/resources.ResJSON'
+            - properties:
+                data:
+                  $ref: '#/definitions/resources.ResSignedTxnEVM'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/resources.ResJSON'
+            - properties:
+                data:
+                  $ref: '#/definitions/resources.ResErr'
+              type: object
+      summary: Signing Txn for GNDChain
+      tags:
+      - SigingTxn
+swagger: "2.0"

@@ -1,0 +1,7 @@
+rpcEndpoint: 'http://127.0.0.1:8200'
+server:
+  ip: "localhost"
+  port: "4000"
+evmNetIDStr:
+  eth: "1"
+  gnd: "61331819613419"

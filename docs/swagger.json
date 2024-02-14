@@ -1,0 +1,162 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/generateKey/evm": {
+            "post": {
+                "description": "Generate PrivKey for EVM",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "PrivKey"
+                ],
+                "summary": "Generate PrivKey for EVM",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/resources.ResJSON"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/resources.ResPrivKeyGen"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/resources.ResJSON"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/resources.ResErr"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/signTxn/gnd/{key_id}/{serialized_txn}": {
+            "get": {
+                "description": "Signing Txn for GNDChain",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SigingTxn"
+                ],
+                "summary": "Signing Txn for GNDChain",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "keyId",
+                        "name": "keyID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "serializedTxn",
+                        "name": "serializedTxn",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/resources.ResJSON"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/resources.ResSignedTxnEVM"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/resources.ResJSON"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/resources.ResErr"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "resources.ResErr": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "resources.ResJSON": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "resources.ResPrivKeyGen": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "keyId": {
+                    "type": "string"
+                }
+            }
+        },
+        "resources.ResSignedTxnEVM": {
+            "type": "object",
+            "properties": {
+                "signedTxn": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
